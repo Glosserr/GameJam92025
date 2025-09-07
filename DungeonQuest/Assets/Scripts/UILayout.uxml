@@ -1,5 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/GameLayoutUI.uss?fileID=7433441132597879392&amp;guid=8f098de420c46ed4cbffe80e0252e7b6&amp;type=3#GameLayoutUI" />
-    <ui:GroupBox name="Header" text="Hello Adventurer" />
-    <ui:GroupBox />
-</ui:UXML>
