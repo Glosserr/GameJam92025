@@ -112,14 +112,16 @@ MonoBehaviour:
   speed: 10
   gravity: -5
   jumpForce: 5
+  slashPrefab: {fileID: 5503505460791601945, guid: 74c549d1b06b6b140a1fd9536eea637f, type: 3}
+  slamPrefab: {fileID: 1400255665468144947, guid: 6c21e7a6e514dd9499418cbbb66211cf, type: 3}
   slashDuration: 0.75
-  slashRange: 1
+  slashRange: 2
   slashRadius: 1
   slashAngle: 45
   slashDamage: 1
   slamDuration: 1
-  slamRadius: 2
-  slamRange: 1
+  slamRadius: 2.5
+  slamRange: 2.5
   slamDamage: 2
 --- !u!95 &1615501030793013657
 Animator:
