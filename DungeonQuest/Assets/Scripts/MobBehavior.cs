@@ -21,6 +21,8 @@ public class MobBehavior : MonoBehaviour
     protected bool inAction = false;
     public GameObject slashPrefab;
     public GameObject slamPrefab;
+    public bool hittable = true;
+    public float hittableTimer;
 
     protected virtual void Start()
     {
@@ -117,18 +119,18 @@ public class MobBehavior : MonoBehaviour
         }
     }
 
-    public void DamageInRadius(float range, float radius, float damage)
+    public void DamageInRadius(float radius, float damage)
     {
-        Vector3 center = transform.position + transform.forward * range;
+        Vector3 center = transform.position + transform.forward;
         SpawnEffect(slamPrefab, center, Quaternion.identity);
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         foreach (var hitCollider in hitColliders)
         {
             MobBehavior mob = hitCollider.GetComponentInParent<MobBehavior>();
-            if (mob != null && mob != this)
+            if (mob != null && mob != this && mob.hittable)
             {
                 Debug.Log($"Hit mob: {mob.name} with damage {damage}");
-                StartCoroutine(mob.TakeDamage(damage));
+                mob.TakeDamage(damage);
             }
         }
     }
@@ -142,39 +144,38 @@ public class MobBehavior : MonoBehaviour
         {
             Debug.Log($"Checking {hitCollider.name}");
             MobBehavior mob = hitCollider.GetComponentInParent<MobBehavior>();
-            if (mob != null && mob != this)
+            if (mob != null && mob != this && mob.hittable)
             {
                 Vector3 toTarget = (mob.transform.position - transform.position).normalized;
                 float angle = Vector3.Angle(direction, toTarget);
                 if (angle <= coneAngle)
                 {
                     Debug.Log($"Hit mob in cone: {mob.name} with damage {damage}");
-                    StartCoroutine(mob.TakeDamage(damage));
+                    mob.TakeDamage(damage);
                 }
             }
         }
     }
 
-    public IEnumerator TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         health -= amount;
         if (health <= 0)
         {
-            StartCoroutine(HandleDeath());
-            yield return null;
+            HandleDeath();
         }
         animator.Play("hurt");
-        float animLength = animator.GetCurrentAnimatorStateInfo(0).length;
-        yield return new WaitForSeconds(animLength);
+        inAction = true;
+        actionTimer = 0.5f;
         Debug.Log($"Mob took {amount} damage!");
     }
 
-    public IEnumerator HandleDeath()
+    public virtual void HandleDeath()
     {
         Debug.Log($"{name} died!");
         animator.Play("death");
-        float animLength = animator.GetCurrentAnimatorStateInfo(0).length;
-        yield return new WaitForSeconds(animLength);
+        inAction = true;
+        actionTimer = 0.5f;
         Destroy(gameObject);
     }
 
