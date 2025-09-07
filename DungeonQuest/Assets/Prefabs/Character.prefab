@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 28.9, y: 1, z: 1.106}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 9, y: 9, z: 9}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,11 +108,11 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 0.3
+  m_Height: 0.1
   m_Radius: 0.1
-  m_SlopeLimit: 45
-  m_StepOffset: 0.1
-  m_SkinWidth: 0.05
+  m_SlopeLimit: 30
+  m_StepOffset: 1
+  m_SkinWidth: 1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2634280650511506565
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0339627a5c2d3ba4d90860133a510d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 1615501030793013657}
   spriteRenderer: {fileID: 5241306715441173221}
   lastMoveDirection: {x: 0, y: 0, z: 1}
   groundLayers:
@@ -135,19 +135,19 @@ MonoBehaviour:
     m_Bits: 4294967295
   groundCheckDistance: 0.6
   groundCheckRadius: 0.5
-  health: 3
-  speed: 1.25
+  health: 5
+  speed: 10
   gravity: -5
-  jumpForce: 2.5
-  slashDuration: 0.5
-  slashRange: 2
+  jumpForce: 5
+  slashDuration: 0.75
+  slashRange: 1
   slashRadius: 1
-  slashAngle: 90
+  slashAngle: 45
   slashDamage: 1
-  slamDuration: 2
-  slamRadius: 1
-  slamRange: 2
-  slamDamage: 1
+  slamDuration: 1
+  slamRadius: 2
+  slamRange: 1
+  slamDamage: 2
 --- !u!95 &1615501030793013657
 Animator:
   serializedVersion: 5
@@ -188,8 +188,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.15, y: 0.2, z: 0.15}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.15, y: 0.18, z: 0.05}
+  m_Center: {x: 0.01, y: 0, z: 0}
 --- !u!54 &4846592196421503292
 Rigidbody:
   m_ObjectHideFlags: 0

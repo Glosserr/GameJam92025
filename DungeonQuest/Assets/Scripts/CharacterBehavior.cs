@@ -22,8 +22,6 @@ public class CharacterBehavior : MobBehavior
     protected override void Start()
     {
         base.Start();
-        speed = 2f;
-        health = 10;
     }
 
     protected override void Update()
@@ -47,22 +45,23 @@ public class CharacterBehavior : MobBehavior
         // Slam "waiting to land" state
         if (inSlam)
         {
-            if (!inJump && IsGrounded())
-                SlamDown();
+            if (!IsGrounded())
+                SlamDown(); 
             return;
         }
 
         // Handle Jump input
-        if (Input.GetKeyDown(KeyCode.Space) && !inJump)
+        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
-            Debug.Log($"Jump pressed . inJump={inJump}, IsGrounded={IsGrounded()}");
+            Debug.Log($"Jump pressed . inJump={IsGrounded()}, IsGrounded={IsGrounded()}");
             Jump();
         }
 
         // Handle Attack input
         if (Input.GetMouseButtonDown(0))
         {
-            if (!inJump) Slash();
+            Debug.Log(IsGrounded());
+            if (IsGrounded()) Slash();
             else SlamUp();
         }
 
@@ -96,7 +95,7 @@ public class CharacterBehavior : MobBehavior
     {
         StartAttack("slamdown", slamDuration,
             () => DamageInRadius(slamRange, slamRadius, slamDamage),
-            0.2f
+            0.15f
         );
         inSlam = false;
     }
