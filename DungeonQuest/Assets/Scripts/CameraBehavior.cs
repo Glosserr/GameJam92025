@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
-    public Transform target; // Assign the 3D object to follow in the Inspector
+    public Transform target;
     public Vector3 offset; // Adjust the camera's relative position
     public float smoothSpeed; // For smooth camera movement
     // Start is called before the first frame update
@@ -17,9 +17,11 @@ public class CameraBehavior : MonoBehaviour
     void LateUpdate()
     {
         // Calculate the desired position based on the target and offset
-        Vector3 desiredPosition = target.position + offset;
-        // Smoothly interpolate the camera's position towards the desired position
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
+        if (target)
+        {
+            Vector3 desiredPosition = target.position + offset;
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            transform.position = smoothedPosition;
+        }
     }
 }
