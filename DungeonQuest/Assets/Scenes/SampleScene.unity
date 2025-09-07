@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 04967cb5a4f05b24fbe8f9fecf46d927, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -955,12 +955,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0339627a5c2d3ba4d90860133a510d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  lastMoveDirection: {x: 0, y: 0, z: 1}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 4294967294
+  groundCheckDistance: 0.1
+  groundCheckRadius: 0.1
+  health: 3
   speed: 5
   gravity: -5
   jumpForce: 2.5
   slashDuration: 0.5
+  slashRange: 0
+  slashRadius: 0
+  slashAngle: 0
+  slashDamage: 0
   slamDuration: 2
+  slamRadius: 0
+  slamRange: 0
+  slamDamage: 0
 --- !u!212 &1573424612
 SpriteRenderer:
   m_ObjectHideFlags: 0
