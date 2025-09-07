@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638927975120574757
-    m_Hash: 2845013001
+      ticks: 638928020770717878
+    m_Hash: 3420688231
   m_LockFileStatus:
     m_FilePath: C:/GameJam92025ButItsAwesome/DungeonQuest/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638927975120685068
-    m_Hash: 525176591
+      ticks: 638928020770717878
+    m_Hash: 4120423059
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
