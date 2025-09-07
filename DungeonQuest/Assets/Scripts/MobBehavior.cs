@@ -18,7 +18,6 @@ public class MobBehavior : MonoBehaviour
     protected float actionTimer = 0f;
     public float jumpForce = 2.5f;
     float velocityY = 0;
-    protected bool inJump = false;
     protected bool inAction = false;
 
     protected virtual void Start()
@@ -31,11 +30,6 @@ public class MobBehavior : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (health <= 0)
-        {
-            StartCoroutine(HandleDeath());
-        }
-
         // handle lock timer
         if (inAction)
         {
@@ -45,12 +39,14 @@ public class MobBehavior : MonoBehaviour
                 inAction = false;
             }
         }
+        else
+        {
 
-        // movement
-        Vector3 velocity = move * speed;
-        velocity.y = rb.velocity.y;
-        rb.velocity = velocity;
-
+            // movement
+            Vector3 velocity = move * speed;
+            velocity.y = rb.velocity.y;
+            rb.velocity = velocity;
+        }
         GroundCheck();
     }
 
@@ -90,15 +86,24 @@ public class MobBehavior : MonoBehaviour
         if (IsGrounded())
         {
             velocityY = 0;
-            inJump = false;
         }
     }
 
     public bool IsGrounded()
     {
-        Vector3 origin = transform.position + Vector3.down * 0.5f;
-        bool grounded = Physics.CheckSphere(origin, groundCheckRadius, groundLayers);
-        Debug.DrawRay(origin, Vector3.down * groundCheckDistance, grounded ? Color.green : Color.red);
+        RaycastHit hit;
+        bool grounded;
+        float distance = 1f;
+        Vector3 dir = new Vector3(0, -0.5f);
+
+        if (Physics.Raycast(transform.position, dir, out hit, distance))
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
         return grounded;
     }
 
@@ -107,7 +112,6 @@ public class MobBehavior : MonoBehaviour
         if (IsGrounded())
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-            inJump = true;
         }
     }
 
@@ -150,6 +154,10 @@ public class MobBehavior : MonoBehaviour
     public IEnumerator TakeDamage(float amount)
     {
         health -= amount;
+        if (health <= 0)
+        {
+            StartCoroutine(HandleDeath());
+        }
         animator.Play("hurt");
         yield return null;
         float animLength = animator.GetCurrentAnimatorStateInfo(0).length;
