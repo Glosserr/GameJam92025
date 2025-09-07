@@ -19,6 +19,8 @@ public class MobBehavior : MonoBehaviour
     public float jumpForce = 2.5f;
     float velocityY = 0;
     protected bool inAction = false;
+    public GameObject slashPrefab;
+    public GameObject slamPrefab;
 
     protected virtual void Start()
     {
@@ -118,6 +120,7 @@ public class MobBehavior : MonoBehaviour
     public void DamageInRadius(float range, float radius, float damage)
     {
         Vector3 center = transform.position + transform.forward * range;
+        SpawnEffect(slamPrefab, center, Quaternion.identity);
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         foreach (var hitCollider in hitColliders)
         {
@@ -133,6 +136,7 @@ public class MobBehavior : MonoBehaviour
     public void DamageInRange(float range, float radius, float coneAngle, float damage, Vector3 direction)
     {
         Vector3 center = transform.position + direction.normalized * range;
+        SpawnEffect(slashPrefab, center, Quaternion.LookRotation(direction));
         Collider[] hitColliders = Physics.OverlapSphere(center, radius);
         foreach (var hitCollider in hitColliders)
         {
@@ -157,9 +161,9 @@ public class MobBehavior : MonoBehaviour
         if (health <= 0)
         {
             StartCoroutine(HandleDeath());
+            yield return null;
         }
         animator.Play("hurt");
-        yield return null;
         float animLength = animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animLength);
         Debug.Log($"Mob took {amount} damage!");
@@ -169,9 +173,15 @@ public class MobBehavior : MonoBehaviour
     {
         Debug.Log($"{name} died!");
         animator.Play("death");
-        yield return null;
         float animLength = animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animLength);
         Destroy(gameObject);
+    }
+
+    void SpawnEffect(GameObject preFab, Vector3 position, Quaternion rotation)
+    {
+        if (preFab == null) return;
+        GameObject effect = Instantiate(preFab, position, rotation);
+        Destroy(effect, 2f); // auto-destroy after 2 seconds (or use effect duration)
     }
 }

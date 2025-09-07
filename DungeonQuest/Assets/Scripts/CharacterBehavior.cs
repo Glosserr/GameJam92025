@@ -45,7 +45,7 @@ public class CharacterBehavior : MobBehavior
         // Slam "waiting to land" state
         if (inSlam)
         {
-            if (!IsGrounded())
+            if (IsGrounded())
                 SlamDown(); 
             return;
         }
@@ -95,7 +95,7 @@ public class CharacterBehavior : MobBehavior
     {
         StartAttack("slamdown", slamDuration,
             () => DamageInRadius(slamRange, slamRadius, slamDamage),
-            0.15f
+            0.5f
         );
         inSlam = false;
     }
