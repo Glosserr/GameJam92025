@@ -9,6 +9,7 @@ public class CharacterBehavior : MobBehavior
     [Header("Slash Attack")]
     public float slashDuration;
     public float slashRange;
+    public int coins;
     public float slashRadius;
     public float slashAngle;
     public float slashDamage;
@@ -16,7 +17,6 @@ public class CharacterBehavior : MobBehavior
     [Header("Slam Attack")]
     public float slamDuration;
     public float slamRadius;
-    public float slamRange;
     public float slamDamage;
 
     protected override void Start()
@@ -26,9 +26,22 @@ public class CharacterBehavior : MobBehavior
 
     protected override void Update()
     {
+        
+        
         // Always check ground state first
         base.Update();
         GroundCheck();
+
+        PickupInRange();
+
+        if (!hittable)
+        {
+            hittableTimer -= Time.deltaTime;
+            if (hittableTimer <= 0f)
+            {
+                hittable = true;
+            }
+        }
 
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputZ = Input.GetAxisRaw("Vertical");
@@ -39,14 +52,14 @@ public class CharacterBehavior : MobBehavior
             lastMoveDirection = move;
 
         // Block input while locked in attack
-        if (inAction) 
+        if (inAction)
             return;
 
         // Slam "waiting to land" state
         if (inSlam)
         {
             if (IsGrounded())
-                SlamDown(); 
+                SlamDown();
             return;
         }
 
@@ -81,7 +94,7 @@ public class CharacterBehavior : MobBehavior
     {
         StartAttack("slash", slashDuration,
             () => DamageInRange(slashRange, slashRadius, slashAngle, slashDamage, lastMoveDirection),
-            0.15f
+            0.1f
         );
     }
 
@@ -94,9 +107,38 @@ public class CharacterBehavior : MobBehavior
     void SlamDown()
     {
         StartAttack("slamdown", slamDuration,
-            () => DamageInRadius(slamRange, slamRadius, slamDamage),
-            0.5f
+            () => DamageInRadius(slamRadius, slamDamage),
+            0.1f
         );
         inSlam = false;
+    }
+
+    public override void TakeDamage(float amount)
+    {
+        base.TakeDamage(amount);
+        hittable = false;
+        hittableTimer = 4f;
+    }
+
+    void PickupInRange()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1f);
+        foreach (var hitCollider in hitColliders)
+        {
+            PickupBehavior item = hitCollider.GetComponentInParent<PickupBehavior>();
+            if (item != null)
+            {
+                if (item.type == "potion")
+                {
+                    health += 2;
+                }
+                else if (item.type == "gem")
+                {
+                    coins += 1;
+                }
+                item.IsPickedUp();
+            }
+
+        }
     }
 }

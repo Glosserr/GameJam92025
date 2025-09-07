@@ -11,6 +11,8 @@ public class OrcBehavior : MobBehavior
     public float attackDamage;
     public float aggroDistance;
     public float stopDistance;
+    public GameObject Gem;
+    public GameObject Potion;
 
     protected override void Start()
     {
@@ -72,5 +74,19 @@ public class OrcBehavior : MobBehavior
     {
         move = Vector3.zero;
         animator.Play("idle");
+    }
+    public override void HandleDeath()
+    {
+        int gemRoll = UnityEngine.Random.Range(0, 2);
+        int potionRoll = UnityEngine.Random.Range(0, 5);
+        if (gemRoll == 1)
+        {
+            Instantiate(Gem, transform.position, Quaternion.identity);
+        }
+        if (potionRoll == 1)
+        {
+            Instantiate(Potion, transform.position, Quaternion.identity);
+        }
+        base.HandleDeath();
     }
 }
