@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9107152454131883794}
   - component: {fileID: 4111027295664076366}
   - component: {fileID: 3832399405570277452}
-  - component: {fileID: 386533449003890556}
   - component: {fileID: 3630174626183254246}
   - component: {fileID: 8617728561716462056}
   m_Layer: 0
@@ -141,32 +140,6 @@ MonoBehaviour:
   attackDamage: 1
   aggroDistance: 5
   stopDistance: 1
---- !u!143 &386533449003890556
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8088657723189076938}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 0.1
-  m_Radius: 0.1
-  m_SlopeLimit: 30
-  m_StepOffset: 1
-  m_SkinWidth: 1
-  m_MinMoveDistance: 0.001
-  m_Center: {x: -0.04, y: 0, z: 0}
 --- !u!65 &3630174626183254246
 BoxCollider:
   m_ObjectHideFlags: 0
