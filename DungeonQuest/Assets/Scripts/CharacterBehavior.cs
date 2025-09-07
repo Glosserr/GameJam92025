@@ -122,7 +122,7 @@ public class CharacterBehavior : MobBehavior
 
     void PickupInRange()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.75f);
         foreach (var hitCollider in hitColliders)
         {
             PickupBehavior item = hitCollider.GetComponentInParent<PickupBehavior>();
