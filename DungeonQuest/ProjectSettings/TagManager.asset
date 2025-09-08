@@ -8,7 +8,10 @@ TagManager:
   - gem
   - munny
   - health
+<<<<<<< Updated upstream
   - table
+=======
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
