@@ -173,7 +173,7 @@ public class CharacterBehavior : MobBehavior
             }
             if (atTable && Input.GetKeyDown(KeyCode.E))
             {
-                SceneManager.LoadScene("Level1");
+                SceneManager.LoadScene(2);
             }
 
         }
