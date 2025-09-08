@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5add121945bcdb24d9a93ae10625f92e, type: 3}
+      propertyPath: m_TagString
+      value: potion
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -149,4 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45c0cf38ead3ca743933214b8abcc1bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: '"potion"'
+  type: potion
