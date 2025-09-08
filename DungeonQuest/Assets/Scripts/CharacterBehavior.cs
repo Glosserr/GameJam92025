@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -50,7 +51,7 @@ public class CharacterBehavior : MobBehavior
         if (healthText != null)
             healthText.text = "Health: " + health.ToString();
         // Always check ground state first
-        
+
         GroundCheck();
 
         PickupInRange();
@@ -147,6 +148,7 @@ public class CharacterBehavior : MobBehavior
         foreach (var hitCollider in hitColliders)
         {
             PickupBehavior item = hitCollider.GetComponentInParent<PickupBehavior>();
+            bool atTable = hitCollider.CompareTag("table");
             if (item != null)
             {
                 if (item.type == "potion")
@@ -168,6 +170,10 @@ public class CharacterBehavior : MobBehavior
                     src.PlayOneShot(gem);
                 }
                 item.IsPickedUp();
+            }
+            if (atTable && Input.GetKeyDown(KeyCode.E))
+            {
+                SceneManager.LoadScene("Level1");
             }
 
         }
