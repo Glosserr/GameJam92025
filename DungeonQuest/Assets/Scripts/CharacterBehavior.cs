@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CharacterBehavior : MobBehavior
 {
@@ -20,19 +21,36 @@ public class CharacterBehavior : MobBehavior
     public float slamDamage;
     public AudioClip heal;
     public AudioClip gem;
+    public GameObject munnyObj;
+    public GameObject healthObj;
+    public TMP_Text munnyText;
+    public TMP_Text healthText;
 
-    
+
     protected override void Start()
     {
         base.Start();
+        munnyObj = GameObject.FindGameObjectWithTag("munny");
+        if (munnyObj != null)
+            munnyText = munnyObj.GetComponent<TMP_Text>();
+
+        healthObj = GameObject.FindGameObjectWithTag("health");
+        if (healthObj != null)
+            healthText = healthObj.GetComponent<TMP_Text>();
+
+
     }
 
     protected override void Update()
     {
-        
-        
-        // Always check ground state first
         base.Update();
+        if (munnyText != null)
+            munnyText.text = "Munny: " + coins.ToString();
+
+        if (healthText != null)
+            healthText.text = "Health: " + health.ToString();
+        // Always check ground state first
+        
         GroundCheck();
 
         PickupInRange();
