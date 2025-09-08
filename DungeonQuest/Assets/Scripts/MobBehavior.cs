@@ -23,6 +23,11 @@ public class MobBehavior : MonoBehaviour
     public GameObject slamPrefab;
     public bool hittable = true;
     public float hittableTimer;
+    public AudioSource src;
+    public AudioClip slash;
+    public AudioClip slam;
+    public AudioClip hurt;
+
 
     protected virtual void Start()
     {
@@ -59,9 +64,19 @@ public class MobBehavior : MonoBehaviour
     // ------------------------
     protected void StartAttack(string animationName, float duration, System.Action onHit, float hitDelay = 0f)
     {
+        
         if (!inAction)
         {
-            animator.Play(animationName);
+            if (animationName == "slash")
+            {
+                animator.Play(animationName);
+                src.PlayOneShot(slash);
+            }
+            else if (animationName == "slamdown")
+            {
+                animator.Play(animationName);
+                src.PlayOneShot(slam);
+            }
             inAction = true;
             actionTimer = duration;
             StartCoroutine(DoAttack(onHit, hitDelay));
@@ -165,6 +180,7 @@ public class MobBehavior : MonoBehaviour
             HandleDeath();
         }
         animator.Play("hurt");
+        src.PlayOneShot(hurt);
         inAction = true;
         actionTimer = 0.5f;
         Debug.Log($"Mob took {amount} damage!");

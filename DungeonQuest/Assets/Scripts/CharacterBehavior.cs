@@ -18,7 +18,10 @@ public class CharacterBehavior : MobBehavior
     public float slamDuration;
     public float slamRadius;
     public float slamDamage;
+    public AudioClip heal;
+    public AudioClip gem;
 
+    
     protected override void Start()
     {
         base.Start();
@@ -130,11 +133,21 @@ public class CharacterBehavior : MobBehavior
             {
                 if (item.type == "potion")
                 {
-                    health += 2;
+                    if (health < 8)
+                    {
+                        health += 2;
+                        src.PlayOneShot(heal);
+                    }
+                    else if (health == 9)
+                    {
+                        health += 1;
+                        src.PlayOneShot(heal);
+                    }
                 }
                 else if (item.type == "gem")
                 {
                     coins += 1;
+                    src.PlayOneShot(gem);
                 }
                 item.IsPickedUp();
             }
