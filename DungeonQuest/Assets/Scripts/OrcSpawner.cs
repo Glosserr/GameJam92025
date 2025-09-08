@@ -5,8 +5,6 @@ public class OrcSpawner : MonoBehaviour
     public int count;
     public float spawnRadius;
     public GameObject Orc;
-    public GameObject Coin;
-    public GameObject Potion;
 
     void Start()
     {
